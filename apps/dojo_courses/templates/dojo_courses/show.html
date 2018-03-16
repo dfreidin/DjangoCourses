@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Course Page</title>
+    </head>
+    <body>
+        <h1>{{course.name}}</h1>
+        <h2>{{course.description}}</h2>
+        <form action="{% url 'comment' id=course.id %}" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Add Comment">
+        </form>
+        <h3>Comments:</h3>
+        {% for c in comments %}
+            <p>{{c.content}}</p>
+        {% endfor %}
+        <p><a href="{% url 'destroy' id=course.id %}">Delete</a> | <a href="{% url 'index' %}">Go back</a></p>
+    </body>
+</html>
